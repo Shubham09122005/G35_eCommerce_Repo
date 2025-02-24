@@ -1,0 +1,118 @@
+.header {
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #eee;
+    background: white;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-decoration: none;
+    color: #000;
+}
+
+.nav {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #000;
+    font-size: 1rem;
+}
+
+button.nav-link {
+    border: none;
+    background-color: #ffffff;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    list-style: none;
+    min-width: 150px;
+    z-index: 100;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown-menu:hover {
+    display: block;
+}
+
+.dropdown-menu li {
+    padding: 0.5rem;
+    white-space: nowrap;
+}
+
+.dropdown-menu li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 0.5rem;
+}
+
+.dropdown-menu li a:hover {
+    background: #f5f5f5;
+}
+
+.search-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    border-radius: 50px;
+    padding: 0.75rem 1.5rem;
+    gap: 1rem;
+}
+
+.search-bar input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.9rem;
+}
+
+.header-icons {
+    display: flex;
+    gap: 1.5rem;
+}
+.header-icons>a{
+    color: #000;
+}
+
+.header-icons a {
+    text-decoration: none;
+    font-size: 1.25rem;
+}
+
+.footer1 {
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+.nav-link{
+    text-decoration: none;
+    color: #000;
+}

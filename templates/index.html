@@ -1,0 +1,330 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% block css %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: white;
+    }
+
+    .hero {
+        text-align: center;
+        padding: 4rem 2rem;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+    }
+
+    .product-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+        overflow: hidden;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .product-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .product-details {
+        padding: 1.5rem;
+    }
+
+    .product-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+
+    .product-price {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #2c2c2c;
+        margin-bottom: 1rem;
+    }
+
+    .product-stock {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .stock-status {
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .stock-status.in-stock {
+        color: #2ecc71;
+    }
+
+    .stock-status.out-of-stock {
+        color: #e74c3c;
+    }
+
+    .add-to-cart-btn {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        background-color: #000;
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+    }
+
+    .add-to-cart-btn:hover {
+        background-color: #333;
+    }
+
+    .out-of-stock {
+        opacity: 0.7;
+        position: relative;
+    }
+
+    .out-of-stock::after {
+        content: "Out of Stock";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.75);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+
+    .footer {
+        background: #f8f8f8;
+        padding: 3rem 2rem;
+        font-family: Arial, sans-serif;
+        margin-top: auto;
+    }
+    
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 2rem;
+        text-align: left;
+    }
+    
+    .footer-section h3 {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+    
+    .footer-section ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .footer-section ul li {
+        margin-bottom: 0.5rem;
+    }
+    
+    .footer-section ul li a {
+        text-decoration: none;
+        color: #333;
+        font-size: 0.9rem;
+    }
+    
+    .footer-section ul li a:hover {
+        text-decoration: underline;
+    }
+    
+    .company-info p {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 1rem;
+    }
+    
+    .social-icons {
+        display: flex;
+        gap: 1rem;
+    }
+    
+    .social-icons a {
+        font-size: 1.2rem;
+        color: black;
+        text-decoration: none;
+    }
+    
+    .social-icons a:hover {
+        opacity: 0.7;
+    }
+    
+    .footer-bottom {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #ddd;
+        padding-top: 1rem;
+        font-size: 0.9rem;
+        color: #666;
+    }
+    
+    .payment-icons img {
+        height: 30px;
+        margin-left: 10px;
+    }
+</style>
+{% endblock %}
+
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Left Content -->
+            <div class="col-lg-6 text-center text-lg-start">
+                <h2 class="display-5 fw-bold text-dark">
+                    "Fashion, Quality, Aur Convenience – Sab Ek Jagah."
+                </h2>
+                <p class="text-secondary mt-3 fs-5">
+                    Browse through our diverse range of meticulously crafted products, thoughtfully designed to celebrate your individuality and cater to your unique taste and lifestyle.
+                </p>
+                <a href="{{ url_for('category_page', category='electronics') }}" class="btn btn-dark btn-lg mt-4">
+                    Shop Now
+                </a>
+                
+                <!-- Stats -->
+                <div class="row mt-4">
+                    <div class="col-md-4 text-center">
+                        <h3 class="fw-bold text-dark">200+</h3>
+                        <p class="text-secondary">International Brands</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <h3 class="fw-bold text-dark">2000+</</h3>
+                        <p class="text-secondary">High-Quality Products</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <h3 class="fw-bold text-dark">30000+</h3>
+                        <p class="text-secondary">Happy Customers</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Image -->
+            <div class="col-lg-6 d-flex justify-content-lg-end align-items-center">
+                <div class="rounded-circle overflow-hidden shadow-lg d-flex align-items-center justify-content-center"
+                     style="width: 320px; height: 320px; background-color: #f0f0f0;">
+                    <img src="{{ url_for('static', filename='images/main.jpg') }}" 
+                         alt="Hero image" 
+                         style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="featured-products">
+    <h2 style="text-align: center;">Featured Products</h2>
+    <div class="product-grid">
+        {% for product in products %}
+        <div class="product-card {% if product.stock == 0 %}out-of-stock{% endif %}">
+            <img src="{{ url_for('static', filename='images/' + product.image_url) }}" 
+                 alt="{{ product.name }}" 
+                 class="product-image">
+            <div class="product-details">
+                <h3 class="product-name">{{ product.name }}</h3>
+                <p class="product-price">₹{{ "%.2f"|format(product.price) }}</p>
+                <div class="product-stock">
+                    {% if product.stock > 0 %}
+                        <span class="stock-status in-stock">In Stock</span>
+                        <a href="{{ url_for('add_to_cart', product_id=product.id) }}" 
+                           class="add-to-cart-btn">Add to Cart</a>
+                    {% else %}
+                        <span class="stock-status out-of-stock">Out of Stock</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section company-info">
+            <h2 class="logo">SHOP AURA</h2>
+            <p>We have clothes that suit your style and which you're proud to wear. From women to men.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h3>COMPANY</h3>
+            <ul>
+                <li><a href="{{url_for('about')}}">About</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Works</a></li>
+                <li><a href="#">Career</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>HELP</h3>
+            <ul>
+                <li><a href="#">Customer Support</a></li>
+                <li><a href="#">Delivery Details</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>FAQ</h3>
+            <ul>
+                <li><a href="">Account</a></li>
+                <li><a href="#">Manage Deliveries</a></li>
+                <li><a href="./cart.html">Orders</a></li>
+                <li><a href="./checkout.html">Payments</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>RESOURCES</h3>
+            <ul>
+                <li><a href="#">Development Tutorial</a></li>
+                <li><a href="#">How To - Blog</a></li>
+                <li><a href="#">YouTube Playlist</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="payment-icons">
+            <img src="{{ url_for('static', filename='images/visa.jpg') }}" alt="Visa">
+            <img src="{{ url_for('static', filename='images/mastercard.jpg') }}" alt="Mastercard">
+            <img src="{{ url_for('static', filename='images/paypal.jpg') }}" alt="PayPal">
+            <img src="{{ url_for('static', filename='images/applepay.jpg') }}"alt="Apple Pay">
+            <img src="{{ url_for('static', filename='images/googlepay.jpg') }}" alt="Google Pay">
+        </div>
+    </div>
+</footer>
+{% endblock %}

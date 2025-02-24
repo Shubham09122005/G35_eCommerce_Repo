@@ -1,0 +1,292 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Flash Messages Section -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" 
+                 style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); 
+                        z-index: 1000; min-width: 300px; text-align: center; 
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<style>
+    .cart-section {
+        padding: 4rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .cart-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .cart-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+
+    .cart-empty {
+        text-align: center;
+        padding: 2rem;
+        background: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .cart-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .cart-table th,
+    .cart-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .cart-table th {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .cart-item-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .quantity-input {
+        width: 60px;
+        padding: 0.5rem;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .stock-status {
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+
+    .low-stock {
+        color: #ffc107;
+        font-weight: 500;
+    }
+
+    .out-of-stock {
+        color: #dc3545;
+        font-weight: 500;
+    }
+
+    .cart-summary {
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 10px;
+        margin-top: 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .checkout-button {
+        display: block;
+        width: 100%;
+        padding: 1rem;
+        background: #198754;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-top: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .checkout-button:hover {
+        background: #146c43;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .checkout-button:active {
+        transform: translateY(0);
+    }
+
+    .continue-shopping {
+        display: inline-block;
+        margin-top: 1rem;
+        color: #6c757d;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .continue-shopping:hover {
+        color: #343a40;
+    }
+
+    .alert {
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+
+    .alert-error {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+
+    .remove-button {
+        padding: 0.375rem 0.75rem;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .remove-button:hover {
+        background-color: #bb2d3b;
+    }
+
+    .price-info {
+        font-size: 1.1rem;
+        color: #333;
+    }
+
+    .total-price {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #198754;
+    }
+</style>
+
+<section class="cart-section">
+    <div class="cart-header">
+        <h1 class="cart-title">Shopping Cart</h1>
+    </div>
+
+    {% if cart_items %}
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <img src="{{ url_for('static', filename='images/' + item.product.image_url) }}" 
+                                 alt="{{ item.product.name }}" 
+                                 class="cart-item-image">
+                            <div>
+                                <span style="display: block; font-weight: bold;">{{ item.product.name }}</span>
+                                <span style="display: block; color: #666; font-size: 0.9rem;">
+                                    Category: {{ item.product.category }}
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="price-info">₹{{ "%.2f"|format(item.product.price) }}</td>
+                    <td>
+                        <form action="{{ url_for('update_cart', product_id=item.product.id) }}" 
+                              method="POST" 
+                              style="display: inline;">
+                            <input type="number" 
+                                   name="quantity" 
+                                   value="{{ item.quantity }}" 
+                                   min="1" 
+                                   max="{{ item.product.stock }}"
+                                   class="quantity-input" 
+                                   onchange="this.form.submit()">
+                            
+                            <div class="stock-status {% if item.product.stock <= 5 %}low-stock{% endif %}">
+                                {% if item.product.stock <= 5 %}
+                                    Only {{ item.product.stock }} left in stock!
+                                {% else %}
+                                    In Stock
+                                {% endif %}
+                            </div>
+                        </form>
+                    </td>
+                    <td class="price-info">₹{{ "%.2f"|format(item.item_total) }}</td>
+                    <td>
+                        <a href="{{ url_for('remove_from_cart', product_id=item.product.id) }}" 
+                           class="remove-button">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="cart-summary">
+            <div class="d-flex justify-content-between mb-3">
+                <span>Subtotal:</span>
+                <span class="price-info">₹{{ "%.2f"|format(total) }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+                <span>Shipping:</span>
+                <span class="price-info">Free</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+                <span style="font-size: 1.2rem; font-weight: bold;">Total:</span>
+                <span class="total-price">₹{{ "%.2f"|format(total) }}</span>
+            </div>
+            <a href="{{ url_for('shipping') }}" class="checkout-button">Proceed to Checkout</a>
+        </div>
+    {% else %}
+        <div class="cart-empty">
+            <h2>Your cart is empty</h2>
+            <p>Looks like you haven't added any products to your cart yet.</p>
+            <a href="{{ url_for('home') }}" class="btn btn-dark mt-3">Start Shopping</a>
+        </div>
+    {% endif %}
+
+    <a href="{{ url_for('home') }}" class="continue-shopping">
+        ← Continue Shopping
+    </a>
+</section>
+
+<script>
+    // Auto-hide flash messages after 5 seconds
+    setTimeout(function() {
+        let alerts = document.getElementsByClassName('alert');
+        for(let alert of alerts) {
+            alert.style.opacity = '0';
+            setTimeout(function() {
+                alert.style.display = 'none';
+            }, 500);
+        }
+    }, 5000);
+</script>
+{% endblock %}

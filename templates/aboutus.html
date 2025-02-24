@@ -1,0 +1,124 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOP AURA - About Us</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<style>/* Animation keyframes */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes slideInLeft {
+        from { transform: translateX(-50px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideInRight {
+        from { transform: translateX(50px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    /* Animation classes */
+    .animate-fade-in {
+        animation: fadeIn 1s ease-out;
+    }
+    
+    .animate-slide-in-left {
+        animation: slideInLeft 1s ease-out;
+    }
+    
+    .animate-slide-in-right {
+        animation: slideInRight 1s ease-out;
+    }
+    
+    /* Additional styles */
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    /* Form styles */
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        transition: border-color 0.3s ease;
+    }
+    
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+        border-color: #2563eb;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }</style>
+<body class="bg-gray-50">
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <nav class="flex items-center justify-between">
+                <a href="{{url_for('home')}}" class="text-2xl font-bold text-black">SHOP AURA</a>
+                <div class="space-x-4">
+                    <a href="{{url_for('home')}}" class="text-gray-600 hover:text-black">Home</a>
+                    <a href="{{url_for('about')}}" class="text-black font-semibold">About</a>
+                    <a href="{{url_for('contact')}}" class="text-gray-600 hover:text-black">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <h1 class="text-4xl font-bold text-center mb-12 animate-fade-in">About SHOP AURA</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="animate-slide-in-left">
+                <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Our Team" class="rounded-lg shadow-lg w-full">
+            </div>
+            <div class="space-y-6 animate-slide-in-right">
+                <h2 class="text-2xl font-semibold">Our Story</h2>
+                <p class="text-gray-600">Founded in 2020, SHOP AURA began with a simple mission: to revolutionize online shopping by offering a curated selection of high-quality products at competitive prices. Our journey started in a small garage and has since grown into a global e-commerce platform.</p>
+                <p class="text-gray-600">We believe in the power of technology to enhance the shopping experience, and we're constantly innovating to bring you the best products and services.</p>
+            </div>
+        </div>
+
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-md animate-fade-in" style="animation-delay: 0.2s;">
+                <h3 class="text-xl font-semibold mb-4">Our Mission</h3>
+                <p class="text-gray-600">To provide our customers with an unparalleled online shopping experience, offering carefully selected products that enhance their lives.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md animate-fade-in" style="animation-delay: 0.4s;">
+                <h3 class="text-xl font-semibold mb-4">Our Vision</h3>
+                <p class="text-gray-600">To become the world's most customer-centric online marketplace, where people can discover anything they might want to buy online.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md animate-fade-in" style="animation-delay: 0.6s;">
+                <h3 class="text-xl font-semibold mb-4">Our Values</h3>
+                <p class="text-gray-600">Customer obsession, innovation, commitment to operational excellence, and long-term thinking guide every decision we make.</p>
+            </div>
+        </div>
+        <div>
+            <h1 style="text-align: center;">You can know more about us by visiting our <a href="./blog.html" style="color: blue;">BLOGS</a></h1>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 SHOP AURA. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+{% endblock %}
