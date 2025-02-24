@@ -1,38 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Checkout</h1>
-<h2>Shipping Details</h2>
-<p><strong>Address:</strong> {{ shipping_details.address }}</p>
-<p><strong>City:</strong> {{ shipping_details.city }}</p>
-<p><strong>State:</strong> {{ shipping_details.state }}</p>
-<p><strong>Zip Code:</strong> {{ shipping_details.zip_code }}</p>
-<p><strong>Country:</strong> {{ shipping_details.country }}</p>
-
-<h2>Order Summary</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for product, quantity in cart_items %}
-        <tr>
-            <td>{{ product.name }}</td>
-            <td>{{ quantity }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.price * quantity }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-<p><strong>Total Amount:</strong> {{ total }}</p>
-
-<form action="{{ url_for('checkout') }}" method="POST">
-    <button type="submit" class="btn btn-success">Place Order</button>
-</form>
+<div class="checkout-container">
+    <div class="checkout-header">
+        <h1>Checkout</h1>
+        <p>Review your order and confirm your details</p>
+    </div>
+    <div class="shipping-summary">
+        <h2>Shipping Details</h2>
+        <p><strong>Address:</strong> {{ shipping_details.address }}</p>
+        <p><strong>City:</strong> {{ shipping_details.city }}</p>
+        <p><strong>State:</strong> {{ shipping_details.state }}</p>
+        <p><strong>Zip Code:</strong> {{ shipping_details.zip_code }}</p>
+        <p><strong>Country:</strong> {{ shipping_details.country }}</p>
+    </div>
+    <div class="order-summary">
+        <h2>Order Summary</h2>
+        <ul>
+            {% for product, quantity in cart_items %}
+                <li>{{ product.name }} - {{ quantity }} x {{ product.price }}</li>
+            {% endfor %}
+        </ul>
+        <p><strong>Total:</strong> {{ total }}</p>
+    </div>
+    <form method="POST" class="checkout-form">
+        <button type="submit">Place Order</button>
+    </form>
+</div>
 {% endblock %}

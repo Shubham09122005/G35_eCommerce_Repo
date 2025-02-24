@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="product-detail">
+    <h1>{{ product.name }}</h1>
+    <img src="{{ url_for('static', filename='images/' ~ product.image_url) }}" alt="{{ product.name }}">
+    <p>Price: {{ product.price }}</p>
+    <p>{{ product.description }}</p>
+    <a href="{{ url_for('home') }}" class="btn btn-primary">Back to Home</a>
+    <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="btn btn-success">Add to Cart</a>
+</div>
+{% endblock %}

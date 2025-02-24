@@ -1,30 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Shipping Details</h1>
-<form action="{{ url_for('shipping') }}" method="POST" class="shipping-form">
-    <div class="mb-3">
-        <label for="address" class="form-label">Address</label>
-        <input type="text" class="form-control" id="address" name="address" required>
+<div class="shipping-container">
+    <div class="shipping-header">
+        <h1>Shipping Details</h1>
+        <p>Please enter your shipping details</p>
     </div>
-    <div class="mb-3">
-        <label for="city" class="form-label">City</label>
-        <input type="text" class="form-control" id="city" name="city" required>
-    </div>
-    <div class="mb-3">
-        <label for="state" class="form-label">State</label>
-        <input type="text" class="form-control" id="state" name="state" required>
-    </div>
-    <div class="mb-3">
-        <label for="zip_code" class="form-label">Zip Code</label>
-        <input type="text" class="form-control" id="zip_code" name="zip_code" required>
-    </div>
-    <div class="mb-3">
-        <label for="country" class="form-label">Country</label>
-        <input type="text" class="form-control" id="country" name="country" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
-</form>
+    <form class="shipping-form" method="POST">
+        <input type="text" name="address" placeholder="Address" required>
+        <input type="text" name="city" placeholder="City" required>
+        <input type="text" name="state" placeholder="State" required>
+        <input type="text" name="zip_code" placeholder="Zip Code" required>
+        <input type="text" name="country" placeholder="Country" required>
+        <button type="submit">Continue to Checkout</button>
+    </form>
+</div>
 
 <style>
     .shipping-form {

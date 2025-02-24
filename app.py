@@ -424,8 +424,14 @@ def search():
 
 @app.route('/product/<int:product_id>')
 def product_detail(product_id):
-    product = Product.query.get_or_404(product_id)
-    return render_template('product_detail.html', product=product)
+    product = get_product_by_id(product_id)
+    if product:
+        return render_template('product_detail.html', product=product)
+    else:
+        return "Product not found", 404
+
+def get_product_by_id(product_id):
+    return Product.query.get(product_id)
 
 # Sample Products Insertion
 def insert_sample_products():
